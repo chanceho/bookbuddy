@@ -2,12 +2,12 @@
 
 BookBuddy is a book recommendation platform for kids, using a hybrid filtering algorithm. Users can select their favorite books, age group, and genre to receive personalized book recommendations. The system consists of a front-end (Next.js), a back-end (FastAPI), and a recommendation engine built with Python.
 
-📌 ## Features
+📌 Features
 
-📚 Personalized book recommendations based on hybrid filtering
-📝 User reviews and ratings
-🏗️ Modern UI with Next.js
-🛠️ API for book data and recommendations
+📚 Personalized book recommendations based on hybrid filtering<br>
+📝 User reviews and ratings<br>
+🏗️ Modern UI with Next.js<br>
+🛠️ API for book data and recommendations<br>
 
 ---
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
