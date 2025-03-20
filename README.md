@@ -1,6 +1,6 @@
 ## BookBuddy
 
-BookBuddy is a book recommendation platform for kids, using a hybrid filtering algorithm. Users can select their favorite books, age group, and genre to receive personalized book recommendations. The system consists of a front-end (Next.js), a back-end (FastAPI), and a recommendation engine built with Python.
+BookBuddy is a book recommendation platform for kids, using a hybrid filtering algorithm. Users can select their favorite books, age group, and genre to receive personalized book recommendations. The system consists of a front-end (Next.js), a back-end (Django), and a recommendation engine built with Python.
 
 📌 Features
 
