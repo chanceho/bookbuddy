@@ -16,7 +16,7 @@ interface GenreCardProps {
 const GenreCard: React.FC<GenreCardProps> = ({ selectedGenre, setGenre }) => {
   return (
     <div className="grid grid-cols-3 gap-6 mt-6 md:grid-cols-3 md:grid-rows-2 justify-center">
-      {genres.map((genre, index) => (
+      {genres.map((genre) => (
         <button
           key={genre.value}
           className={`flex flex-col items-center justify-center w-[300px] h-[200px] p-4 rounded-lg shadow-md ${genre.bg} transition 
