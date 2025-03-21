@@ -8,7 +8,7 @@ import { books } from "../../services/books";
 import { Book } from "@/types/book";
 
 export default function Home() {
-  const [selectedBooks, setSelectedBooks] = useState<Book[]>([]);
+  const [selectedBooks, setSelectedBooks] = useState<string[]>([]);
   const [ageGroup, setAgeGroup] = useState<string | null>(null);
   const [genre, setGenre] = useState<string | null>(null);
   const [recommendedBooks, setRecommendedBooks] = useState<Book[]>([]);
@@ -49,7 +49,7 @@ export default function Home() {
       {recommendedBooks.length > 0 && (
         <div className="mt-6">
           <h2 className="text-4xl font-semibold tracking-widest">Recommended Books</h2>
-          <BookList books={recommendedBooks} />
+          <BookList books={recommendedBooks} selectedBooks={[]} setSelectedBooks={() => {}}/>
         </div>
       )}
     </div>
