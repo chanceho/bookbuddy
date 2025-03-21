@@ -4,7 +4,7 @@ const genres = [
   { label: "Adventure", image: "/images/adventure.svg", value: "Adventure", bg: "bg-red-100" },
   { label: "Fantasy", image: "/images/fantasy.svg", value: "Fantasy", bg: "bg-blue-100" },
   { label: "Mystery", image: "/images/mystery.svg", value: "Mystery", bg: "bg-green-100" },
-  { label: "Science Fiction", image: "/images/science.svg", value: "Sci-Fi", bg: "bg-purple-100" },
+  { label: "Science", image: "/images/science.svg", value: "Science", bg: "bg-purple-100" },
   { label: "History", image: "/images/history.svg", value: "History", bg: "bg-yellow-100" },
 ];
 
