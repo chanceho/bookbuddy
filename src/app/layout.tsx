@@ -26,7 +26,7 @@ export default function RootLayout({
         <main className="min-h-screen flex flex-col">
           {children}
           <footer className="mt-auto bg-gray-100 py-4 text-center">
-            <img src="/images/footer.svg" alt="Footer" className="mx-auto w-auto h-auto" />
+            <img src="/images/footer.svg" alt="Footer" className="mx-auto w-full h-auto" />
           </footer>
         </main>
       </body>

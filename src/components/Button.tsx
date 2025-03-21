@@ -7,11 +7,14 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, children, className }) => {
+const Button: React.FC<ButtonProps> = ({ onClick, children, className, disabled }) => {
   return (
     <button
       onClick={onClick}
-      className={`px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition ${className}`}
+      disabled={disabled}
+      className={`text-xl px-4 py-2 transition font-semibold 
+        ${disabled ? "bg-gray-400 cursor-not-allowed" : "bg-[#7C6063] hover:bg-[#6B5255] text-white"} 
+        ${className}`}
     >
       {children}
     </button>
