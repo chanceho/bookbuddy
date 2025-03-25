@@ -44,7 +44,7 @@ export default function Home() {
       {/* Step 1: Choose Age Group */}
       {step === 1 && (
         <>
-          <h2 className="mt-10 text-4xl font-semibold tracking-widest">Choose Your Age</h2>
+          <h2 className="mt-10 text-4xl font-semibold tracking-widest">What is your current age?</h2>
           <AgeGroupCard setAgeGroup={setAgeGroup} selectedAgeGroup={ageGroup} />
           <Button className="mt-8" onClick={() => setStep(2)} disabled={!ageGroup}>
             Next
@@ -55,7 +55,7 @@ export default function Home() {
       {/* Step 2: Choose Genre */}
       {step === 2 && (
         <>
-          <h2 className="mt-10 text-4xl font-semibold tracking-widest">Pick Your Genre</h2>
+          <h2 className="mt-10 text-4xl font-semibold tracking-widest">What do you want to read today?</h2>
           <GenreCard setGenre={setGenre} selectedGenre={genre} />
           <div className="mt-8 flex gap-4">
             <Button onClick={() => setStep(1)}>Back</Button>
@@ -69,7 +69,7 @@ export default function Home() {
       {/* Step 3: Pick Books */}
       {step === 3 && (
         <>
-          <h2 className="mt-10 text-4xl font-semibold tracking-widest">Pick Books You’ve Read</h2>
+          <h2 className="mt-10 text-4xl font-semibold tracking-widest">What are the books that you have read?</h2>
           <BookList books={books.slice(0, 5)} selectedBooks={selectedBooks} setSelectedBooks={setSelectedBooks} />
           <div className="mt-8 flex gap-4">
             <Button onClick={() => setStep(2)}>Back</Button>
@@ -83,8 +83,8 @@ export default function Home() {
       {/* Step 4: Show Recommended Books */}
       {step === 4 && (
         <>
-          <h2 className="mt-10 text-4xl font-semibold tracking-widest">Recommended Books</h2>
-          <BookList books={books} selectedBooks={selectedBooks} setSelectedBooks={setSelectedBooks} />
+          <h2 className="mt-10 text-4xl font-semibold tracking-widest">Here are our recommended books for you!</h2>
+          <BookList books={books.slice(0, 5)} selectedBooks={selectedBooks} setSelectedBooks={setSelectedBooks} />
           <div className="mt-8">
             <Button onClick={() => setStep(3)}>Back</Button>
           </div>

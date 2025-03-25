@@ -8,7 +8,7 @@ export const books: Book[] = [
     author: "Mark Twain",
     genre: "Adventure",
     ageGroup: "7-9",
-    coverImage: "/images/action.svg",
+    coverImage: "/images/tom.jpg",
   },
   {
     id: "2",
@@ -16,7 +16,7 @@ export const books: Book[] = [
     author: "J.K. Rowling",
     genre: "Fantasy",
     ageGroup: "10-12",
-    coverImage: "/images/mystery.svg",
+    coverImage: "/images/harry_potter_sorcerer.jpg",
   },
   {
     id: "3",
@@ -24,7 +24,7 @@ export const books: Book[] = [
     author: "E.B. White",
     genre: "Classic",
     ageGroup: "6-8",
-    coverImage: "/images/classic.svg",
+    coverImage: "/images/charlotte_web.jpeg",
   },
   {
     id: "4",
@@ -32,7 +32,7 @@ export const books: Book[] = [
     author: "Rick Riordan",
     genre: "Fantasy",
     ageGroup: "10-12",
-    coverImage: "/images/fantasy.svg",
+    coverImage: "/images/percy.jpg",
   },
   {
     id: "5",
@@ -40,7 +40,7 @@ export const books: Book[] = [
     author: "Frances Hodgson Burnett",
     genre: "Classic",
     ageGroup: "9-12",
-    coverImage: "/images/action.svg",
+    coverImage: "/images/secret_garden.webp",
   },
 ];
 
