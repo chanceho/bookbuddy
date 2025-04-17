@@ -20,11 +20,7 @@ from scipy.sparse import csr_matrix
 
 # === 2. GLOBAL DATA LOADING ===
 columns_of_interest_books = ['book_id', 'title', 'average_rating', 'ratings_count','description', 'num_pages', 'popular_shelves','image_url','authors']
-<<<<<<< HEAD
 json_files_books = ['goodreads_books_children_sample.json', 'goodreads_books_young_adult_sample.json']
-=======
-json_files_books = ['goodreads_books_children.json', 'goodreads_books_young_adult.json']
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
 data_books = []
 
 for json_file in json_files_books:
@@ -54,11 +50,7 @@ def get_name(author_id):
     return None
 
 columns_of_interest_interactions = ['user_id','book_id','is_read','rating']
-<<<<<<< HEAD
 json_files_interactions = ['goodreads_interactions_children_sample.json', 'goodreads_interactions_young_adult_sample.json']
-=======
-json_files_interactions = ['goodreads_interactions_children.json', 'goodreads_interactions_young_adult.json']
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
 data_interactions = []
 for json_file in json_files_interactions:
     with open(json_file, 'r') as file:
@@ -356,13 +348,8 @@ def detect_age_range(book_data):
 
     age_scores = {
         '0-5': 0,
-<<<<<<< HEAD
         '6-10': 0,
         '11-15': 0,
-=======
-        '5-10': 0,
-        '10-15': 0,
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
         '15+': 0
     }
 
@@ -376,7 +363,6 @@ def detect_age_range(book_data):
     # Apply title complexity to age scores
     if title_complexity < 0.3:
         age_scores['0-5'] += 10
-<<<<<<< HEAD
         age_scores['6-10'] += 5
     elif title_complexity < 0.5:
         age_scores['6-10'] += 8
@@ -387,23 +373,10 @@ def detect_age_range(book_data):
     else:
         age_scores['15+'] += 8
         age_scores['11-15'] += 4
-=======
-        age_scores['5-10'] += 5
-    elif title_complexity < 0.5:
-        age_scores['5-10'] += 8
-        age_scores['0-5'] += 4
-    elif title_complexity < 0.7:
-        age_scores['10-15'] += 8
-        age_scores['5-10'] += 4
-    else:
-        age_scores['15+'] += 8
-        age_scores['10-15'] += 4
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
 
     # Apply description complexity to age scores
     if desc_complexity < 0.3:
         age_scores['0-5'] += 12
-<<<<<<< HEAD
         age_scores['6-10'] += 6
     elif desc_complexity < 0.5:
         age_scores['6-10'] += 10
@@ -414,18 +387,6 @@ def detect_age_range(book_data):
     else:
         age_scores['15+'] += 12
         age_scores['11-15'] += 6
-=======
-        age_scores['5-10'] += 6
-    elif desc_complexity < 0.5:
-        age_scores['5-10'] += 10
-        age_scores['0-5'] += 5
-    elif desc_complexity < 0.7:
-        age_scores['10-15'] += 10
-        age_scores['5-10'] += 5
-    else:
-        age_scores['15+'] += 12
-        age_scores['10-15'] += 6
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
 
     # POS tag patterns analysis for age appropriateness
     pos_patterns = analyze_pos_patterns(description)
@@ -437,34 +398,20 @@ def detect_age_range(book_data):
 
     if any(term in title_lower or term in description_lower for term in board_book_terms):
         age_scores['0-5'] += 12
-<<<<<<< HEAD
         age_scores['6-10'] -= 5
-=======
-        age_scores['5-10'] -= 5
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
 
     early_reader_terms = ['early reader', 'beginning reader', 'learn to read', 'level reader',
                           'first reader', 'step into reading', 'i can read', 'reading level']
 
     if any(term in title_lower or term in description_lower for term in early_reader_terms):
-<<<<<<< HEAD
         age_scores['6-10'] += 12
-=======
-        age_scores['5-10'] += 12
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
         age_scores['0-5'] -= 2
 
     grade_terms = {
         '0-5': ['preschool', 'pre-k', 'kindergarten'],
-<<<<<<< HEAD
         '6-10': ['grade 1', 'grade 2', 'grade 3', 'grade 4', 'first grade', 'second grade',
                  'third grade', 'fourth grade', 'fifth grade', 'elementary'],
         '11-15': ['grade 5', 'grade 6', 'grade 7', 'grade 8', 'middle school', 'middle-grade',
-=======
-        '5-10': ['grade 1', 'grade 2', 'grade 3', 'grade 4', 'first grade', 'second grade',
-                 'third grade', 'fourth grade', 'fifth grade', 'elementary'],
-        '10-15': ['grade 5', 'grade 6', 'grade 7', 'grade 8', 'middle school', 'middle-grade',
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
                   'middle grade', 'tween'],
         '15+': ['grade 9', 'grade 10', 'grade 11', 'grade 12', 'high school', 'teen', 'young adult',
                 'ya', 'college', 'university']
@@ -476,7 +423,6 @@ def detect_age_range(book_data):
 
     if num_pages <= 32:
         age_scores['0-5'] += 15
-<<<<<<< HEAD
         age_scores['6-10'] -= 3
     elif 33 <= num_pages <= 48:
         age_scores['0-5'] += 10
@@ -496,27 +442,6 @@ def detect_age_range(book_data):
     elif num_pages > 350:
         age_scores['15+'] += 12
         age_scores['11-15'] += 6
-=======
-        age_scores['5-10'] -= 3
-    elif 33 <= num_pages <= 48:
-        age_scores['0-5'] += 10
-        age_scores['5-10'] += 5
-    elif 49 <= num_pages <= 80:
-        age_scores['5-10'] += 12
-        age_scores['0-5'] -= 2
-    elif 81 <= num_pages <= 120:
-        age_scores['5-10'] += 8
-        age_scores['10-15'] += 4
-    elif 121 <= num_pages <= 200:
-        age_scores['10-15'] += 8
-        age_scores['5-10'] += 4
-    elif 201 <= num_pages <= 350:
-        age_scores['10-15'] += 10
-        age_scores['15+'] += 5
-    elif num_pages > 350:
-        age_scores['15+'] += 12
-        age_scores['10-15'] += 6
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
 
     # Content theme analysis with increased weight for theme matches
     content_themes = analyze_text_themes(title_lower, description_lower)
@@ -575,13 +500,8 @@ def analyze_pos_patterns(text):
     try:
         age_patterns = {
             '0-5': 0,
-<<<<<<< HEAD
             '6-10': 0,
             '11-15': 0,
-=======
-            '5-10': 0,
-            '10-15': 0,
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
             '15+': 0
         }
 
@@ -613,7 +533,6 @@ def analyze_pos_patterns(text):
         # Score assignment based on POS patterns
         if simple_structure > 0.6 and complex_markers < 0.1:
             age_patterns['0-5'] += 8
-<<<<<<< HEAD
             age_patterns['6-10'] += 4
         elif simple_structure > 0.5 and complex_markers < 0.15:
             age_patterns['6-10'] += 7
@@ -624,30 +543,13 @@ def analyze_pos_patterns(text):
         elif complex_markers > 0.2 and advanced_features > 0.25:
             age_patterns['15+'] += 8
             age_patterns['11-15'] += 4
-=======
-            age_patterns['5-10'] += 4
-        elif simple_structure > 0.5 and complex_markers < 0.15:
-            age_patterns['5-10'] += 7
-            age_patterns['0-5'] += 3
-        elif complex_markers > 0.15 and advanced_features > 0.2:
-            age_patterns['10-15'] += 6
-            age_patterns['15+'] += 3
-        elif complex_markers > 0.2 and advanced_features > 0.25:
-            age_patterns['15+'] += 8
-            age_patterns['10-15'] += 4
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
 
         return age_patterns
     except:
         return {
             '0-5': 0,
-<<<<<<< HEAD
             '6-10': 0,
             '11-15': 0,
-=======
-            '5-10': 0,
-            '10-15': 0,
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
             '15+': 0
         }
 
@@ -657,13 +559,8 @@ def analyze_text_themes(title, description):
 
     theme_scores = {
         '0-5': 0,
-<<<<<<< HEAD
         '6-10': 0,
         '11-15': 0,
-=======
-        '5-10': 0,
-        '10-15': 0,
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
         '15+': 0
     }
 
@@ -693,19 +590,11 @@ def analyze_text_themes(title, description):
 
     for theme in elementary_themes:
         if theme in combined_text:
-<<<<<<< HEAD
             theme_scores['6-10'] += 1.5
 
     for theme in middle_themes:
         if theme in combined_text:
             theme_scores['11-15'] += 1.5
-=======
-            theme_scores['5-10'] += 1.5
-
-    for theme in middle_themes:
-        if theme in combined_text:
-            theme_scores['10-15'] += 1.5
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
 
     for theme in ya_themes:
         if theme in combined_text:
@@ -718,27 +607,16 @@ def analyze_shelves_for_age(shelves):
     shelf_patterns = {
         '0-5': ['picture book', 'board book', 'childrens', 'toddler', 'baby', 'preschool',
                 'bedtime', 'nursery', 'concept book'],
-<<<<<<< HEAD
         '6-10': ['early reader', 'chapter book', 'childrens', 'kids', 'elementary', 'juvenile',
                  'easy reader'],
         '11-15': ['middle grade', 'middle-grade', 'tween', 'juvenile', 'preteen'],
-=======
-        '5-10': ['early reader', 'chapter book', 'childrens', 'kids', 'elementary', 'juvenile',
-                 'easy reader'],
-        '10-15': ['middle grade', 'middle-grade', 'tween', 'juvenile', 'preteen'],
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
         '15+': ['young adult', 'ya', 'teen', 'high school', 'new adult', 'adult']
     }
 
     shelf_scores = {
         '0-5': 0,
-<<<<<<< HEAD
         '6-10': 0,
         '11-15': 0,
-=======
-        '5-10': 0,
-        '10-15': 0,
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
         '15+': 0
     }
 
@@ -756,11 +634,7 @@ def analyze_shelves_for_age(shelves):
 tfidf = TfidfVectorizer(stop_words='english')
 tfidf_matrix = tfidf.fit_transform(books['description'])
 
-<<<<<<< HEAD
 def get_content_recommendations(book_id, top_n=6):
-=======
-def get_content_recommendations(book_id, top_n=3):
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
     book_row = books[books['book_id'] == book_id]
     index = books.index.get_loc(book_row.index[0])
     book_data = book_row.iloc[0].to_dict()
@@ -796,7 +670,6 @@ def create_user_item_matrix():
 
 user_item_matrix, item_mapper, item_inv_mapper = create_user_item_matrix()
 
-<<<<<<< HEAD
 def get_collaborative_recommendations(book_id, top_n=6):
     if book_id not in item_mapper:
         return pd.DataFrame(columns=['book_id', 'title'])
@@ -819,16 +692,6 @@ def get_collaborative_recommendations(book_id, top_n=6):
     except Exception as e:
         print(f"Error generating recommendations: {str(e)}")
         return pd.DataFrame(columns=['book_id', 'title'])
-=======
-def get_collaborative_recommendations(book_id, top_n=3):
-    item_ind = item_mapper[book_id]
-    item_vec = user_item_matrix[item_ind]
-    kNN = NearestNeighbors(n_neighbors=top_n+1, algorithm="brute", metric="cosine")
-    kNN.fit(user_item_matrix)
-    neighbors = kNN.kneighbors(item_vec, return_distance=False)
-    ids = [item_inv_mapper[n] for n in neighbors[0][1:]]
-    return books[books['book_id'].isin(ids)][['book_id', 'title']]
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
 
 # === 7. SEED BOOK SELECTOR ===
 def get_seed_book_id(age_group, genre):
@@ -857,17 +720,10 @@ def get_recommendations(book_id):
         authors_list = book_details['authors']
         author_names = [get_name(a['author_id']) for a in authors_list if get_name(a['author_id'])]
         book_metadata = {
-<<<<<<< HEAD
             "book_id": book_details['book_id'],
             "title": book_details['title'],
             "author": " & ".join(author_names) if author_names else "Unknown",
             "coverImage": book_details['image_url']
-=======
-            "bookid": book_details['book_id'],
-            "title": book_details['title'],
-            "author": " & ".join(author_names) if author_names else "Unknown",
-            "coverimage": book_details['image_url']
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
         }
         result.append(book_metadata)
     return result
@@ -878,7 +734,6 @@ def get_hybrid_recommendations(age_group, genre):
         return {"error": "No book found for given filters."}
     return get_recommendations(seed_id)
 
-<<<<<<< HEAD
 
 def get_book_details(book_id):
     try:
@@ -921,11 +776,3 @@ def get_book_details(book_id):
     except Exception as e:
         print(f"Error getting book details: {str(e)}")
         return None
-=======
-# === 9. MAIN BLOCK FOR TESTING ===
-if __name__ == "__main__":
-    print("Testing recommendation system...")
-    test_result = get_hybrid_recommendations("10-15", "Fantasy")
-    for rec in test_result:
-        print(rec)
->>>>>>> 50bc354e84ace40be991448ae405eb5ed03ef307
