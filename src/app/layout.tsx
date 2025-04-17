@@ -9,7 +9,7 @@ const unkempt = Unkempt({
 });
 
 export const metadata: Metadata = {
-  title: "BookBuddy - Personalized Book Recommendations for Kids",
+  title: "BookBuddy",
   description: "Discover the best books for kids with personalized recommendations based on age, genre, and preferences.",
 };
 

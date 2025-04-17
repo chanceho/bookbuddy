@@ -2,9 +2,9 @@ import React from "react";
 
 const ageGroups = [
   { label: "0 - 5 years", image: "/images/0-5years.svg", value: "0-5", bg: "bg-yellow-100" },
-  { label: "6 - 8 years", image: "/images/6-8years.svg", value: "6-8", bg: "bg-blue-100" },
-  { label: "9 - 12 years", image: "/images/9-12years.svg", value: "9-12", bg: "bg-purple-100" },
-  { label: "13 - 16 years", image: "/images/13-16years.svg", value: "13-16", bg: "bg-indigo-100" },
+  { label: "6 - 10 years", image: "/images/6-8years.svg", value: "6-10", bg: "bg-blue-100" },
+  { label: "11 - 15 years", image: "/images/9-12years.svg", value: "11-15", bg: "bg-purple-100" },
+  { label: "15+ years", image: "/images/13-16years.svg", value: "15+", bg: "bg-indigo-100" },
 ];
 
 interface AgeGroupCardProps {
