@@ -750,6 +750,9 @@ def get_recommendations(book_id):
 
 def get_hybrid_recommendations(age_group, genre):
     seed_id = get_seed_book_id(age_group, genre)
+    global books
+    if books is None or books.empty:
+        return {"error": "Book data not loaded", "success": False}
     if not seed_id:
         return {"error": "No book found for given filters."}
     return get_recommendations(seed_id)
