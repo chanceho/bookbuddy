@@ -5,6 +5,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from recommender import get_hybrid_recommendations, get_book_details
 import os
+import gc
 
 app = Flask(__name__)
 
@@ -49,6 +50,8 @@ def recommend_books():
         
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
+    finally:
+        gc.collect()
     
 
 @app.route('/book/<book_id>')
@@ -64,6 +67,8 @@ def get_book(book_id):
         
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    finally:
+        gc.collect()
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8000))
