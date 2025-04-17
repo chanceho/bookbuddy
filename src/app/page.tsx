@@ -19,7 +19,7 @@ export default function Home() {
     if (ageGroup && genre) {
       setLoading(true);
       try {
-        const response = await fetch('http://localhost:8000/recommend_books', {
+        const response = await fetch('https://book-recommender-api-p28l.onrender.com', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
