@@ -20,7 +20,6 @@ from scipy.sparse import csr_matrix
 import boto3
 import io
 import os
-import gc
 
 # === 2. GLOBAL DATA LOADING ===
 aws_access_key = os.getenv("AWS_ACCESS_KEY_ID")
@@ -747,9 +746,6 @@ def get_recommendations(book_id):
             "coverImage": book_details['image_url']
         }
         result.append(book_metadata)
-
-    del books
-    gc.collect()
     return result
 
 def get_hybrid_recommendations(age_group, genre):
@@ -767,9 +763,6 @@ def get_book_details(book_id):
             return None
             
         book_data = book_row.iloc[0].to_dict()
-        
-        del books
-        gc.collect()
 
         # Process authors
         authors_list = book_data.get('authors', [])
