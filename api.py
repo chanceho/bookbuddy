@@ -4,12 +4,13 @@ import json
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from recommender import get_hybrid_recommendations, get_book_details
+import os
 
 app = Flask(__name__)
 
 CORS(app, resources={
     r"/recommend_books": {
-        "origins": ["http://localhost:3000"],
+        "origins": ["http://localhost:3000","https://bookbuddy-git-final1-chancehos-projects.vercel.app"],
         "methods": ["POST", "OPTIONS"],
         "allow_headers": ["Content-Type"]
     }
@@ -17,7 +18,7 @@ CORS(app, resources={
 
 CORS(app, resources={   
     r"/book/*": {
-        "origins": ["http://localhost:3000"],
+        "origins": ["http://localhost:3000","https://bookbuddy-git-final1-chancehos-projects.vercel.app"],
         "methods": ["GET", "OPTIONS"],
         "allow_headers": ["Content-Type"],
         "supports_credentials": True
@@ -65,4 +66,5 @@ def get_book(book_id):
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(port=8000, debug=True)
+    port = int(os.environ.get('PORT', 10000))
+    app.run(host='0.0.0.0', port=port)
