@@ -10,4 +10,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Explicitly set the PORT and bind to 0.0.0.0
-CMD ["gunicorn", "--bind", "0.0.0.0:$PORT", "api:app"]
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT:-8000} api:app"]
