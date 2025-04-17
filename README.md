@@ -5,44 +5,107 @@ BookBuddy is a book recommendation platform for kids, using a hybrid filtering a
 📌 Features
 
 📚 Personalized book recommendations based on hybrid filtering<br>
-📝 User reviews and ratings<br>
 🏗️ Modern UI with Next.js<br>
 🛠️ API for book data and recommendations<br>
 
 ---
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🌐 **Live Demo**: [https://bookbuddy-pj.vercel.app](https://bookbuddy-pj.vercel.app)
+📦 **Data Files**: Included in `data.zip`
 
-## Getting Started
+## 🚀 Setup for Local Development
 
-First, run the development server:
+### Prerequisites
+- Node.js v16+ (Frontend)
+- Python 3.12+ (Backend)
+- Git
 
+### 1. Get Started
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/chance-ho/bookbuddy.git
+unzip data.zip -d backend/data
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Frontend Setup
+```bash
+cd frontend
+npm install
+```
+Create .env.local:
+```bash
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Backend Setup
+```bash
+cd ../backend
+python -m venv .venv
+source .venv/bin/activate  # Linux/Mac
+# .\.venv\Scripts\activate  # Windows
 
-## Learn More
+pip install -r requirements.txt
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 2. Run the app locally
+Frontend (in /frontend):
+```bash
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Backend (in /backend):
+```bash
+python api.py
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Access at:
+Frontend: http://localhost:3000
+API: http://localhost:8000/
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🔧 Configuration
+Modify backend/recommender.py if needed:
+```bash
+# === 2. GLOBAL DATA LOADING ===
+olumns_of_interest_books = ['book_id', 'title', 'average_rating', 'ratings_count','description', 'num_pages', 'popular_shelves','image_url','authors']
+json_files_books = ['goodreads_books_children_sample.json', 'goodreads_books_young_adult_sample.json']
+data_books = []
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+for json_file in json_files_books:
+    with open(json_file, 'r') as file:
+        for line in file:
+            record = json.loads(line)
+            filtered_record = {key:record[key] for key in columns_of_interest_books}
+            data_books.append(filtered_record)
+
+books = pd.DataFrame(data_books)
+books['description_length'] = books['description'].apply(len)
+books = books[books['description_length'] != 0]
+books = books.drop('description_length', axis=1)
+
+columns_of_interest_authors = ['author_id', 'name']
+data_authors = []
+with open('goodreads_book_authors.json', 'r') as file:
+    for line in file:
+        record = json.loads(line)
+        filtered_record = {key:record[key] for key in columns_of_interest_authors}
+        data_authors.append(filtered_record)
+authors = pd.DataFrame(data_authors)
+
+def get_name(author_id):
+    if author_id in authors['author_id'].values:
+        return authors.loc[authors['author_id'] == author_id, 'name'].values[0]
+    return None
+
+columns_of_interest_interactions = ['user_id','book_id','is_read','rating']
+json_files_interactions = ['goodreads_interactions_children_sample.json', 'goodreads_interactions_young_adult_sample.json']
+data_interactions = []
+for json_file in json_files_interactions:
+    with open(json_file, 'r') as file:
+        for line in file:
+            record = json.loads(line)
+            filtered_record = {key:record[key] for key in columns_of_interest_interactions}
+            data_interactions.append(filtered_record)
+interactions = pd.DataFrame(data_interactions)
+interactions = interactions[interactions['is_read'] != 0]
+```
+
