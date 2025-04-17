@@ -19,7 +19,7 @@ export default function Home() {
     if (ageGroup && genre) {
       setLoading(true);
       try {
-        const response = await fetch('https://book-recommender-api-p28l.onrender.com', {
+        const response = await fetch('https://bookbuddy-nrdf.onrender.com', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

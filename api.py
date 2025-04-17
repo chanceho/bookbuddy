@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 CORS(app, resources={
     r"/recommend_books": {
-        "origins": ["http://localhost:3000"],
+        "origins": ["https://bookbuddy-git-final1-chancehos-projects.vercel.app/"],
         "methods": ["POST", "OPTIONS"],
         "allow_headers": ["Content-Type"]
     }
@@ -17,7 +17,7 @@ CORS(app, resources={
 
 CORS(app, resources={   
     r"/book/*": {
-        "origins": ["http://localhost:3000"],
+        "origins": ["https://bookbuddy-git-final1-chancehos-projects.vercel.app/"],
         "methods": ["GET", "OPTIONS"],
         "allow_headers": ["Content-Type"],
         "supports_credentials": True
