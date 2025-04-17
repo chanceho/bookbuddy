@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: bookbuddy-api
+    env: docker
+    region: singapore
+    plan: free
+    dockerfilePath: ./Dockerfile
+    buildCommand: ""
+    startCommand: ""
+    envVars:
+      - key: AWS_ACCESS_KEY_ID
+        fromEnvVar: AWS_ACCESS_KEY_ID
+      - key: AWS_SECRET_ACCESS_KEY
+        fromEnvVar: AWS_SECRET_ACCESS_KEY
+      - key: AWS_DEFAULT_REGION
+        value: ap-southeast-1
+      - key: PORT
+        value: 10000
