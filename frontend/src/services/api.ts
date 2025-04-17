@@ -11,7 +11,7 @@ interface Book {
   
   export const fetchBookDetails = async (book_id: string): Promise<Book> => {
     try {
-      const response = await fetch(`http://localhost:8000/book/${book_id}`);
+      const response = await fetch(`https://bookbuddy-production-f4e6.up.railway.app/${book_id}`);
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
