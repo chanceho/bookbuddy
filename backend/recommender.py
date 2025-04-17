@@ -750,7 +750,66 @@ def get_recommendations(book_id):
 
 def get_hybrid_recommendations(age_group, genre):
     seed_id = get_seed_book_id(age_group, genre)
-    global books
+    
+    aws_access_key = os.getenv("AWS_ACCESS_KEY_ID")
+    aws_secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
+    region = os.getenv("AWS_DEFAULT_REGION")
+
+    s3 = boto3.client('s3',
+        aws_access_key_id=aws_access_key,
+        aws_secret_access_key=aws_secret_key,
+        region_name=region)
+
+    bucket_name = 'bookbuddy-app'
+
+    def read_json_lines_from_s3(bucket, key):
+        obj = s3.get_object(Bucket=bucket, Key=key)
+        lines = obj['Body'].read().decode('utf-8').splitlines()
+        return [json.loads(line) for line in lines]
+
+    # Books
+    columns_of_interest_books = ['book_id', 'title', 'average_rating', 'ratings_count',
+                                'description', 'num_pages', 'popular_shelves', 'image_url', 'authors']
+    json_files_books = ['goodreads_books_children_sample.json', 'goodreads_books_young_adult_sample.json']
+    data_books = []
+
+    for json_file in json_files_books:
+        records = read_json_lines_from_s3(bucket_name, json_file)
+        for record in records:
+            filtered_record = {key: record[key] for key in columns_of_interest_books}
+            data_books.append(filtered_record)
+
+    books = pd.DataFrame(data_books)
+    books['description_length'] = books['description'].apply(len)
+    books = books[books['description_length'] != 0]
+    books = books.drop('description_length', axis=1)
+
+    # Authors
+    columns_of_interest_authors = ['author_id', 'name']
+    records = read_json_lines_from_s3(bucket_name, 'goodreads_book_authors.json')
+    data_authors = [{key: record[key] for key in columns_of_interest_authors} for record in records]
+    authors = pd.DataFrame(data_authors)
+
+    def get_name(author_id):
+        if author_id in authors['author_id'].values:
+            return authors.loc[authors['author_id'] == author_id, 'name'].values[0]
+        return None
+
+    # Interactions
+    columns_of_interest_interactions = ['user_id', 'book_id', 'is_read', 'rating']
+    json_files_interactions = ['goodreads_interactions_children_sample.json',
+                            'goodreads_interactions_young_adult_sample.json']
+    data_interactions = []
+
+    for json_file in json_files_interactions:
+        records = read_json_lines_from_s3(bucket_name, json_file)
+        for record in records:
+            filtered_record = {key: record[key] for key in columns_of_interest_interactions}
+            data_interactions.append(filtered_record)
+
+    interactions = pd.DataFrame(data_interactions)
+    interactions = interactions[interactions['is_read'] != 0]
+
     if books is None or books.empty:
         return {"error": "Book data not loaded", "success": False}
     if not seed_id:
